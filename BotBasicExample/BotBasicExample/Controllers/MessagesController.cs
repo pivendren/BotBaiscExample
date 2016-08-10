@@ -1,12 +1,9 @@
-﻿using System;
-using System.Linq;
+﻿using Microsoft.Bot.Connector;
+using System;
 using System.Net;
 using System.Net.Http;
 using System.Threading.Tasks;
 using System.Web.Http;
-using System.Web.Http.Description;
-using Microsoft.Bot.Connector;
-using Newtonsoft.Json;
 
 namespace BotBasicExample
 {
@@ -26,7 +23,11 @@ namespace BotBasicExample
                 int length = (activity.Text ?? string.Empty).Length;
 
                 // return our reply to the user
-                Activity reply = activity.CreateReply($"You sent {activity.Text} which was {length} characters");
+
+                //string.Format("You sent {0} which was {1} characters", activity.Text, length); //Old method of formatting strings
+
+                Activity reply = activity.CreateReply($"You sent {activity.Text} which was {length} characters"); // New method of formatting strings
+
                 await connector.Conversations.ReplyToActivityAsync(reply);
             }
             else
